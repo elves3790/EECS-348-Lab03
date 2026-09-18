@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Multiplication Table Generator</title>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 8px 12px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Generate a Multiplication Table</h2>
+
+    <form method="POST" action="">
+        <label for="size">Enter a number:</label>
+        <input type="number" id="size" name="size" min="1" max="100" required>
+        <input type="submit" value="Generate">
+    </form>
+
+    <br>
+
+    <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['size'])) {
+        $num = intval($_POST['size']);
+
+        if ($num > 0) {
+            echo "<h3>Multiplication Table (1 to $num)</h3>";
+            echo "<table>";
+
+            // Header row
+            echo "<tr><th>&times;</th>";
+            for ($col = 1; $col <= $num; $col++) {
+                echo "<th>$col</th>";
+            }
+            echo "</tr>";
+
+            // Table body
+            for ($row = 1; $row <= $num; $row++) {
+                echo "<tr>";
+                // Row header
+                echo "<th>$row</th>";
+                
+                // Product cells
+                for ($col = 1; $col <= $num; $col++) {
+                    $product = $row * $col;
+                    echo "<td>$product</td>";
+                }
+                echo "</tr>";
+            }
+
+            echo "</table>";
+        }
+    }
+    ?>
+
+</body>
+</html>
